@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ChanelCategorySearcher</title>
+	<link rel="stylesheet" href="main.css">
+    <style>
+        td {padding:5px;}
+        button{margin: 5px;}
+    </style>
+</head>
+<body>
+	<div class="block">
+		<p>
+			Название:<br/>
+			<input id="channelName" />
+		</p>
+		<p>
+			Категория:<br/>
+			<input id="channelCategory" />
+		</p>
+		<p>
+			Ссылка:<br/>
+			<input id="channelLink" />
+		</p>
+			<button id="addBtn">Добавить канал</button>
+	</div>
+	<div class="block">
+		<label > Категория
+			<select id ="categorySelect">
+			</select>
+			<button id="selectBtn">Выбрать</button>
+		</label>
+	</div>
+	<div class="channels-view">
+		<h3 id="categoryText">Категория</h3>
+		<table>
+			<thead>
+			<tr>
+				<th style="display: table-cell;text-align: left;">Название</th>
+				<th style="display: table-cell;text-align: left;">Ссылка</th>
+			</tr>
+			</thead>
+			<tbody id = "categoryViewBody">
+			</tbody>
+		</table>
+	</div>
+	<div class="channels-view">
+		<h3>Все Каналы</h3>
+		<table>
+			<thead>
+			<tr>
+				<th style="display: table-cell;text-align: left;">Название</th>
+				<th style="display: table-cell;text-align: left;">Категория</th>
+				<th style="display: table-cell;text-align: left;">Ссылка</th>
+			</tr>
+			</thead>
+			<tbody id = "allViewBody">
+			</tbody>
+		</table>
+	</div>
+    <script>
+		function removeAllChildren(parent) {
+			while (parent.firstChild) {
+				parent.removeChild(parent.firstChild);
+			}
+		}
+		
+        function row(channel) {
+
+            const tr = document.createElement("tr");
+            tr.setAttribute("data-rowid", channel.id);
+
+            const nameTd = document.createElement("td");
+            nameTd.append(channel.name);
+            tr.append(nameTd);
+
+            const categoryTd = document.createElement("td");
+            categoryTd.append(channel.category);
+            tr.append(categoryTd);
+
+            const linkTd = document.createElement("td");
+            linkTd.append(channel.link);
+            tr.append(linkTd);
+
+            return tr;
+        }
+		
+		function categoryRow(channel) {
+
+			const tr = document.createElement("tr");
+			tr.setAttribute("data-rowid", channel.id);
+
+			const nameTd = document.createElement("td");
+			nameTd.append(channel.name);
+			tr.append(nameTd);
+
+			const linkTd = document.createElement("td");
+			linkTd.append(channel.link);
+			tr.append(linkTd);
+
+			return tr;
+		}
+		
+		function reset() {
+			document.getElementById("channelName").value = "";
+			document.getElementById("channelCategory").value ="";
+			document.getElementById("channelLink").value = "";
+		}
+        
+        async function getAll()
+        {
+            const response = await fetch("/api/v1/channels", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            
+            const channels = await response.json();
+            const rows = document.getElementById("allViewBody");
+            channels.forEach(channel => rows.append(row(channel)));
+            
+        }
+		
+		async function getByCategory(id)
+		{
+			if(id == "All")
+			{
+				const rows = document.getElementById("categoryViewBody");
+				removeAllChildren(rows);
+				getAll();
+			}
+			else 
+			{
+				const response = await fetch(`api/v1/category/${id}`, {
+					method: "GET",
+					headers: {"Accept": "application/json"}
+				});
+				const rowsAll = document.getElementById("allViewBody");
+				removeAllChildren(rowsAll);
+
+				const channels = await response.json();
+				const rows = document.getElementById("categoryViewBody");
+				removeAllChildren(rows);
+				channels.forEach(channel => rows.append(categoryRow(channel)));
+			}
+
+		}
+
+		async function createSelect() {
+			const response = await fetch("api/v1/categories", {
+				method: "GET",
+				headers: {"Accept": "application/json"}
+			});
+			let list = ["All"];
+			const categories = await response.json();
+			list = list.concat(categories)
+			const select = document.getElementById("categorySelect");
+			for (let i = 0; i < list.length; i++) {
+				const option = document.createElement("option");
+				option.value = list[i];
+				option.text = list[i];
+				select.add(option);
+			}
+		}
+		
+		async function addChannel(channelName,channelCategory,channelLink)
+		{
+			const response = await fetch("/api/v1/create", {
+				method: "POST",
+				headers: { "Accept": "application/json", "Content-Type": "application/json" },
+				body: JSON.stringify({
+					name: channelName,
+					category: channelCategory,
+					link: channelLink
+				})
+			});
+			if (response.ok === true) {
+				const channel = await response.json();
+				document.getElementById("allViewBody").append(row(channel));
+				if(selectedCategory == channelCategory)
+				{
+					document.getElementById("categoryViewBody").append(row(channel));
+				}
+			}
+			else {
+				const error = await response.json();
+				console.log(error.message);
+			}
+		}
+		let selectedCategory = "";
+		
+        document.getElementById("addBtn").addEventListener("click", async () => {
+
+			const name = document.getElementById("channelName").value;
+			const category = document.getElementById("channelCategory").value;
+			const link = document.getElementById("channelLink").value;
+			await addChannel(name,category,link);
+			reset();
+		});
+
+		document.getElementById("selectBtn").addEventListener("click", async () => {
+			const select = document.getElementById("categorySelect").value;
+			selectedCategory = select;
+			document.getElementById("categoryText").innerHTML = selectedCategory;
+			await getByCategory(select);
+		});
+		
+		createSelect();
+    </script>
+</body>
+</html>

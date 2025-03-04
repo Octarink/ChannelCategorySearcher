@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ChanelCategorySearcher</title>
+	<link rel="stylesheet" href="main.css">
+    <style>
+        td {padding:5px;}
+        button{margin: 5px;}
+    </style>
+</head>
+<body>
+	<div class="block">
+		<p>
+			Название:<br/>
+			<input id="name" />
+		</p>
+		<p>
+			Категория:<br/>
+			<input id="category" />
+		</p>
+		<p>
+			Ссылка:<br/>
+			<input id="link" />
+		</p>
+			<button id="addBtn">Добавить канал</button>
+	</div>
+	<div class="center-class">
+		<table>
+			<thead>
+			<tr>
+				<th>Название</th>
+				<th>Категория</th>
+				<th>Ссылка</th>
+				<th></th>
+			</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+    <script>
+        function row(channel) {
+
+            const tr = document.createElement("tr");
+            tr.setAttribute("data-rowid", channel.id);
+
+            const nameTd = document.createElement("td");
+            nameTd.append(channel.name);
+            tr.append(nameTd);
+
+            const categoryTd = document.createElement("td");
+            categoryTd.append(channel.category);
+            tr.append(categoryTd);
+
+            const linkTd = document.createElement("td");
+            linkTd.append(channel.link);
+            tr.append(linkTd);
+
+            return tr;
+        }
+        
+        async function getAll()
+        {
+            const response = await fetch("/api/test", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            
+            const channels = await response.json();
+            const rows = document.querySelector("tbody");
+            channels.forEach(channel => rows.append(row(channel)));
+            
+        }
+		
+		async function addChannel()
+		{
+			
+		}
+
+        document.getElementById("addBtn").addEventListener("click", () =>  addChannel());
+		getAll();
+    </script>
+</body>
+</html>

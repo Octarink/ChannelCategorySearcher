@@ -1,0 +1,24 @@
+button {
+	color: orange;
+}
+.block {
+    border: 5px solid #949599;
+    height: fit-content;
+    margin: inherit;
+    padding: 2px;
+    width: auto;
+    place-self: center;
+    display: flex;
+    align-items: center;
+}
+
+.channels-view {
+    border: 5px solid #949599;
+    height: fit-content;
+    margin: inherit;
+    padding: 2px;
+    width: auto;
+    place-self: auto;
+    display: grid;
+    align-items: center;
+}

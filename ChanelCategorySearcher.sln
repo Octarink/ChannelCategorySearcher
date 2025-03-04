@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChanelCategorySearcher.WebApi", "ChanelCategorySearcher.WebApi\ChanelCategorySearcher.WebApi.csproj", "{585E40A1-EDF7-4971-BCB7-B612097AE8CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChanelCategorySearcher.DAL", "ChanelCategorySearcher.DAL\ChanelCategorySearcher.DAL.csproj", "{D40514BE-2DC9-47FC-B490-28582E78AD8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChanelCategorySearcher.BusinessLogic", "ChanelCategorySearcher.BusinessLogic\ChanelCategorySearcher.BusinessLogic.csproj", "{4132BF08-A55E-4BD0-A175-A10EE81A801D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{585E40A1-EDF7-4971-BCB7-B612097AE8CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{585E40A1-EDF7-4971-BCB7-B612097AE8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{585E40A1-EDF7-4971-BCB7-B612097AE8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{585E40A1-EDF7-4971-BCB7-B612097AE8CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D40514BE-2DC9-47FC-B490-28582E78AD8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D40514BE-2DC9-47FC-B490-28582E78AD8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D40514BE-2DC9-47FC-B490-28582E78AD8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D40514BE-2DC9-47FC-B490-28582E78AD8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4132BF08-A55E-4BD0-A175-A10EE81A801D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4132BF08-A55E-4BD0-A175-A10EE81A801D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4132BF08-A55E-4BD0-A175-A10EE81A801D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4132BF08-A55E-4BD0-A175-A10EE81A801D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
