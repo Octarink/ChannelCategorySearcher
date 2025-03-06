@@ -3,7 +3,13 @@ using ChanelCategorySearcher.DAI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.AddCors(policy => policy.AddPolicy("default", opt =>
+{
+    opt.AllowAnyHeader();
+    opt.AllowCredentials();
+    opt.AllowAnyMethod();
+    opt.SetIsOriginAllowed(_ => true);
+}));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -28,6 +34,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("default");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseDefaultFiles();
