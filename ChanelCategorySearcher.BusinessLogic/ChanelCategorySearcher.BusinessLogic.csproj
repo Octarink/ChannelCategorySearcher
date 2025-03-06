@@ -4,10 +4,15 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+		<GenerateRuntimeConfigDevFile>true</GenerateRuntimeConfigDevFile>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\ChanelCategorySearcher.DAL\ChanelCategorySearcher.DAL.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="8.0.1" />
     </ItemGroup>
 
 </Project>

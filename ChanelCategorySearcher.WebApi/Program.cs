@@ -10,6 +10,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDataAccess();
 builder.Services.AddBusinessLogic();
+builder.Host.UseSystemd();
 builder.WebHost.ConfigureKestrel(serverOptions =>
                     {
                         serverOptions.ListenAnyIP(5005, listenOptions =>
