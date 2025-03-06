@@ -24,7 +24,6 @@ public class SearcherController : ControllerBase
     }
     
     [HttpGet("categories")]
-    //[Route("/api/category")]
     public IResult GetAllCategory()
     {
         var response = _chanelService.GetAllCategory();
