@@ -13,7 +13,6 @@ public static class Extensions
             var connectionConf = configuration.GetConnectionString("PostgresConnection");
 
            options.LogTo(Console.WriteLine);
-           //options.UseNpgsql("Host=db;Port=5432;Database=postgres;Username=postgres;Password=admin");
            options.UseNpgsql(connectionConf);
         });
         serviceCollection.AddScoped<IChanelRepository, ChanelRepository>();
